@@ -11,7 +11,7 @@
    ========================================================================= */
 
 /** Адрес обработчика, например "https://lead-api.vercel.app/api/lead". */
-var LEAD_ENDPOINT = "";
+var LEAD_ENDPOINT = "https://lead-api-blue.vercel.app/api/lead";
 
 /** Куда отправлять человека, если форма недоступна. */
 var FALLBACK_CONTACT = "@glushi_ribu";
