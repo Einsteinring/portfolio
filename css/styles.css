@@ -82,11 +82,10 @@ body.is-held {
    Один слой на всю высоту документа, поэтому узор нигде не обрывается
    на границе секции. Три составляющие, все статичные:
 
-   1. Кольца — тот же знак, что в фавиконе: сигнал, расходящийся от точки.
-      Центр стоит на ленте уведомлений, дальше кольца проходят через всю
-      страницу и приходят к форме заявки внизу.
-   2. Зерно — материал поверхности, чтобы тёмные поля не выглядели
-      залитыми краской.
+   1. Сетка точек и зерно — одинаковые в любой точке страницы. Именно они
+      и есть узор: он не вырождается и не обрывается нигде.
+   2. Кольца — тот же знак, что в фавиконе: сигнал, расходящийся от точки.
+      Одна вспышка с центром на ленте уведомлений, гаснет по маске.
    3. Направляющие — края колонки, продолженные на всю высоту. Вместе с
       линиями между секциями фон читается как разметочный лист.
 
@@ -1119,34 +1118,33 @@ button {
   max-width: 68ch;
 }
 
-/* ───────────────────────────── Отзывы ───────────────────────────── */
-.voices {
+/* ─────────────────────── Что можно проверить ───────────────────────
+   Тот же ритм строк, что у таблицы услуг: название слева, объяснение
+   справа. Раздел говорит фактами, а не цитатами. */
+.proof {
   display: grid;
-  gap: 0;
 }
 
-.voice {
-  padding-block: 28px;
+.proof__item {
+  display: grid;
+  gap: 8px;
+  padding-block: 26px;
   border-top: 1px solid var(--rule);
 }
 
-.voice:last-child {
+.proof__item:last-child {
   border-bottom: 1px solid var(--rule);
 }
 
-.voice__text {
-  margin: 0;
-  font-size: clamp(1.0625rem, 2vw, 1.25rem);
-  line-height: 1.5;
-  letter-spacing: -0.015em;
-  max-width: 62ch;
+.proof__title {
+  font-size: 1.15rem;
+  font-weight: 700;
 }
 
-.voice__who {
-  margin-top: 12px;
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--text-faint);
+.proof__text {
+  color: var(--text-dim);
+  font-size: 15.5px;
+  max-width: 68ch;
 }
 
 /* ───────────────────────────── Вопросы ───────────────────────────── */
@@ -1513,6 +1511,18 @@ button {
   .track__step {
     grid-template-columns: 72px minmax(0, 1fr);
     gap: 28px;
+  }
+
+  .proof__item {
+    grid-template-columns: minmax(200px, 1fr) minmax(0, 2.2fr);
+    column-gap: 32px;
+    align-items: start;
+    padding-block: 28px;
+  }
+
+  .proof__title,
+  .proof__text {
+    grid-row: 1;
   }
 
   .reach {
