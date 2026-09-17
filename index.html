@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Иван — сайты, Telegram-боты и автоматизация для малого бизнеса</title>
+    <meta
+      name="description"
+      content="Фриланс-разработчик: сайты с онлайн-записью, Telegram-боты и Mini Apps, интеграции с Google Sheets и CRM. Рабочие демо, код на GitHub, связь в Telegram."
+    />
+    <meta name="author" content="Иван" />
+    <meta name="theme-color" content="#0f1211" />
+    <link rel="canonical" href="https://knyaziv.github.io/portfolio/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Портфолио Ивана" />
+    <meta
+      property="og:title"
+      content="Иван — сайты, Telegram-боты и автоматизация для малого бизнеса"
+    />
+    <meta
+      property="og:description"
+      content="Сайты с онлайн-записью, Telegram-боты и Mini Apps. Заявка с сайта приходит вам в Telegram сразу, с расчётом и контактами."
+    />
+    <meta property="og:url" content="https://knyaziv.github.io/portfolio/" />
+    <meta property="og:image" content="https://knyaziv.github.io/portfolio/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Иван — сайты и Telegram-боты для малого бизнеса" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Анимации включаются, только если скрипт жив: иначе контент виден сразу. -->
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+  </head>
+
+  <body>
+    <div class="backdrop" aria-hidden="true"></div>
+
+    <a class="skip" href="#main">Перейти к содержимому</a>
+
+    <header class="topbar">
+      <div class="shell topbar__inner">
+        <a class="ident" href="#top">
+          <span class="ident__name">Иван</span>
+          <span class="ident__slogan">Сайты и Telegram-боты, которые приносят заявки</span>
+        </a>
+
+        <nav class="topnav" aria-label="Разделы страницы">
+          <a href="#services">Услуги</a>
+          <a href="#work">Проекты</a>
+          <a href="#process">Как я работаю</a>
+          <a href="#faq">Вопросы</a>
+          <a href="#contacts">Контакты</a>
+        </nav>
+
+        <a
+          class="btn btn--primary btn--compact topbar__cta"
+          href="https://t.me/glushi_ribu"
+          target="_blank"
+          rel="noopener"
+          >Написать в Telegram</a
+        >
+
+        <button
+          class="burger"
+          type="button"
+          aria-expanded="false"
+          aria-controls="drawer"
+          aria-label="Открыть меню"
+        >
+          <span class="burger__line" aria-hidden="true"></span>
+          <span class="burger__line" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div class="drawer" id="drawer" hidden>
+        <nav class="shell" aria-label="Меню">
+          <a href="#services">Услуги</a>
+          <a href="#work">Проекты</a>
+          <a href="#process">Как я работаю</a>
+          <a href="#faq">Вопросы</a>
+          <a href="#contacts">Контакты</a>
+          <a
+            class="btn btn--primary"
+            href="https://t.me/glushi_ribu"
+            target="_blank"
+            rel="noopener"
+            >Написать в Telegram</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ══════════════ Первый экран ══════════════ -->
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="shell hero__grid">
+          <div class="hero__copy">
+            <h1 class="hero__title" id="hero-title">
+              <span class="hero__title-lead">Клиент оставил заявку.</span
+              ><span class="hero__title-beat">Вы уже знаете.</span>
+            </h1>
+
+            <p class="hero__lead">
+              Я Иван, собираю сайты, Telegram-ботов и Mini Apps для малого бизнеса. Клиент сам
+              считает стоимость и выбирает время, а заявка сразу уходит вам в Telegram и в таблицу,
+              с расчётом и контактами. Проекты ниже открываются и работают по-настоящему.
+            </p>
+
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="#work">Смотреть демо</a>
+              <a class="btn btn--quiet" href="#contacts">Рассказать про задачу</a>
+            </div>
+          </div>
+
+          <!-- TODO: заменить — имена и суммы в примерах вымышленные -->
+          <div class="hero__demo">
+            <ol class="stream" id="stream">
+              <li class="note">
+                <p class="note__head">
+                  <span class="note__dot" aria-hidden="true"></span>
+                  <span class="note__kind">Новая заявка</span>
+                  <time class="note__time" datetime="14:07">14:07</time>
+                </p>
+                <p class="note__who">Марина, студия маникюра</p>
+                <p class="note__body">Пятница, 18:30. Маникюр с покрытием, мастер Лена.</p>
+              </li>
+              <li class="note">
+                <p class="note__head">
+                  <span class="note__dot" aria-hidden="true"></span>
+                  <span class="note__kind">Новая заявка</span>
+                  <time class="note__time" datetime="14:22">14:22</time>
+                </p>
+                <p class="note__who">Алексей, шиномонтаж на Типанова</p>
+                <p class="note__body">Завтра 10:00, комплект R17. Расчёт 2 740 ₽.</p>
+              </li>
+              <li class="note">
+                <p class="note__head">
+                  <span class="note__dot" aria-hidden="true"></span>
+                  <span class="note__kind">Новая заявка</span>
+                  <time class="note__time" datetime="14:41">14:41</time>
+                </p>
+                <p class="note__who">Дмитрий, пункт выдачи</p>
+                <p class="note__body">Нужен бот, который отвечает про график и адреса.</p>
+              </li>
+            </ol>
+            <p class="hero__caption">
+              Так заявка выглядит у вас в телефоне через секунду после отправки.
+            </p>
+          </div>
+        </div>
+
+        <div class="shell">
+          <ul class="ticker">
+            <li class="ticker__item">
+              <!-- TODO: заменить -->
+              <span class="ticker__value">7 дней</span>
+              <span class="ticker__label">средний срок лендинга под ключ</span>
+            </li>
+            <li class="ticker__item">
+              <span class="ticker__value">100 из 100</span>
+              <span class="ticker__label">Lighthouse на десктопе в последнем проекте</span>
+            </li>
+            <li class="ticker__item">
+              <span class="ticker__value">58</span>
+              <span class="ticker__label">автотестов в том же проекте, чтобы расчёт не врал</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ══════════════ Услуги ══════════════ -->
+      <section class="band" id="services" aria-labelledby="services-title">
+        <div class="shell">
+          <div class="head band__reveal">
+            <h2 class="head__title" id="services-title">Услуги</h2>
+            <span class="head__rule" aria-hidden="true"></span>
+            <p class="head__meta">4 формата</p>
+          </div>
+          <p class="head__lead band__reveal">
+            Цена зависит от объёма, но планка и срок настоящие: ниже них я за работу не берусь.
+          </p>
+
+          <!-- TODO: заменить — цены и сроки поставлены ориентировочно -->
+          <ul class="specs band__reveal">
+            <li class="spec">
+              <h3 class="spec__name">Лендинг под ключ</h3>
+              <ul class="spec__includes">
+                <li>Структура страницы и тексты</li>
+                <li>Вёрстка от 360 px до десктопа</li>
+                <li>Форма заявки с уведомлением в Telegram</li>
+                <li>Метатеги, превью ссылки, скорость 90+</li>
+                <li>Деплой и передача исходников</li>
+              </ul>
+              <p class="spec__term">7–10 дней</p>
+              <p class="spec__price">от 25 000 ₽</p>
+            </li>
+
+            <li class="spec">
+              <h3 class="spec__name">Telegram-бот</h3>
+              <ul class="spec__includes">
+                <li>Сценарий диалога и меню команд</li>
+                <li>Приём заявок в таблицу или базу</li>
+                <li>Уведомления администратору</li>
+                <li>Команды для рассылки и статусов</li>
+                <li>Запуск на сервере</li>
+              </ul>
+              <p class="spec__term">5–7 дней</p>
+              <p class="spec__price">от 15 000 ₽</p>
+            </li>
+
+            <li class="spec">
+              <h3 class="spec__name">Telegram Mini App</h3>
+              <ul class="spec__includes">
+                <li>Приложение внутри Telegram, без установки</li>
+                <li>Интерфейс под тему мессенджера</li>
+                <li>Авторизация через данные Telegram</li>
+                <li>Серверная часть и база данных</li>
+                <li>Оплата или заявка внутри приложения</li>
+              </ul>
+              <p class="spec__term">2–3 недели</p>
+              <p class="spec__price">от 40 000 ₽</p>
+            </li>
+
+            <li class="spec">
+              <h3 class="spec__name">Интеграции и автоматизация</h3>
+              <ul class="spec__includes">
+                <li>Заявки с сайта в Google Sheets или CRM</li>
+                <li>Уведомления в Telegram по событиям</li>
+                <li>Выгрузки и отчёты по расписанию</li>
+                <li>Обмен данными между сервисами</li>
+                <li>Логи и разбор ошибок</li>
+              </ul>
+              <p class="spec__term">2–5 дней</p>
+              <p class="spec__price">от 10 000 ₽</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ══════════════ Проекты ══════════════ -->
+      <section class="band band--work" id="work" aria-labelledby="work-title">
+        <div class="shell">
+          <div class="head band__reveal">
+            <h2 class="head__title" id="work-title">Проекты</h2>
+            <span class="head__rule" aria-hidden="true"></span>
+            <p class="head__meta" id="work-count"></p>
+          </div>
+          <p class="head__lead band__reveal">
+            Демо открываются в новой вкладке, код лежит на GitHub. Откройте кейс, чтобы прочитать,
+            какая была задача и что изменилось у владельца.
+          </p>
+
+          <div class="tabs band__reveal" role="group" aria-label="Фильтр проектов по типу">
+            <button class="tab is-on" type="button" data-filter="all" aria-pressed="true">
+              Все<span class="tab__count"></span>
+            </button>
+            <button class="tab" type="button" data-filter="landing" aria-pressed="false">
+              Лендинги<span class="tab__count"></span>
+            </button>
+            <button class="tab" type="button" data-filter="bot" aria-pressed="false">
+              Боты<span class="tab__count"></span>
+            </button>
+            <button class="tab" type="button" data-filter="miniapp" aria-pressed="false">
+              Mini Apps<span class="tab__count"></span>
+            </button>
+            <button class="tab" type="button" data-filter="integration" aria-pressed="false">
+              Интеграции<span class="tab__count"></span>
+            </button>
+          </div>
+
+          <div class="works" id="projects" aria-live="polite" aria-busy="true">
+            <p class="works__state">Загружаю проекты.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════ Как я работаю ══════════════ -->
+      <section class="band" id="process" aria-labelledby="process-title">
+        <div class="shell">
+          <div class="head band__reveal">
+            <h2 class="head__title" id="process-title">Как я работаю</h2>
+            <span class="head__rule" aria-hidden="true"></span>
+            <p class="head__meta">4 шага</p>
+          </div>
+          <p class="head__lead band__reveal">
+            Вы в любой момент знаете, на каком шаге проект и что будет дальше.
+          </p>
+
+          <ol class="track band__reveal">
+            <li class="track__step">
+              <p class="track__num">1</p>
+              <div class="track__text">
+                <h3 class="track__title">Обсуждаем задачу</h3>
+                <p>
+                  Разбираемся, кто ваш клиент, что он должен сделать на сайте и какие данные нужны
+                  вам на выходе. Объём, срок и цену фиксирую письменно до начала работы.
+                </p>
+              </div>
+            </li>
+            <li class="track__step">
+              <p class="track__num">2</p>
+              <div class="track__text">
+                <h3 class="track__title">Собираю прототип</h3>
+                <p>
+                  Вы видите структуру экранов и тексты раньше, чем появится дизайн. Правки на этом
+                  шаге бесплатны и занимают минуты, а не дни.
+                </p>
+              </div>
+            </li>
+            <li class="track__step">
+              <p class="track__num">3</p>
+              <div class="track__text">
+                <h3 class="track__title">Разрабатываю</h3>
+                <p>
+                  Рабочая ссылка появляется в первый день, дальше вы наблюдаете прогресс. Проверяю
+                  на телефоне, планшете и десктопе, подключаю формы, уведомления и интеграции.
+                </p>
+              </div>
+            </li>
+            <li class="track__step">
+              <p class="track__num">4</p>
+              <div class="track__text">
+                <h3 class="track__title">Запускаю и поддерживаю</h3>
+                <p>
+                  Выкладываю на ваш домен, передаю доступы и исходники, показываю, как менять цены и
+                  тексты самостоятельно. Две недели после запуска правлю всё, что всплывёт.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ══════════════ Отзывы ══════════════ -->
+      <section class="band" id="reviews" aria-labelledby="reviews-title">
+        <div class="shell">
+          <div class="head band__reveal">
+            <h2 class="head__title" id="reviews-title">Отзывы</h2>
+            <span class="head__rule" aria-hidden="true"></span>
+          </div>
+
+          <!-- TODO: заменить — отзывы вымышленные, поставить реальные после первых проектов -->
+          <ul class="voices band__reveal">
+            <li class="voice">
+              <blockquote class="voice__text">
+                Раньше половину заявок мы теряли в переписке. Сейчас всё падает в Telegram вместе с
+                расчётом, администратору остаётся позвонить и подтвердить время.
+              </blockquote>
+              <p class="voice__who">Алексей, владелец автосервиса</p>
+            </li>
+            <li class="voice">
+              <blockquote class="voice__text">
+                Договорились в понедельник, в четверг уже принимали первые записи. Отдельно ценно,
+                что цены в прайсе я правлю сама, без разработчика.
+              </blockquote>
+              <p class="voice__who">Марина, студия маникюра</p>
+            </li>
+            <li class="voice">
+              <blockquote class="voice__text">
+                Бот забрал вопросы про график и адреса. Нагрузка на администратора упала, а заявки
+                теперь сразу попадают в таблицу.
+              </blockquote>
+              <p class="voice__who">Дмитрий, сеть пунктов выдачи</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ══════════════ Вопросы ══════════════ -->
+      <section class="band" id="faq" aria-labelledby="faq-title">
+        <div class="shell">
+          <div class="head band__reveal">
+            <h2 class="head__title" id="faq-title">Вопросы</h2>
+            <span class="head__rule" aria-hidden="true"></span>
+            <p class="head__meta">5 ответов</p>
+          </div>
+
+          <div class="qa band__reveal">
+            <div class="qa__row">
+              <h3 class="qa__h">
+                <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-1">
+                  Сколько занимает работа?
+                  <span class="qa__sign" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="qa__a" id="qa-1" hidden>
+                <p>
+                  Лендинг под ключ — 7–10 дней, простой Telegram-бот — 5–7 дней, Mini App — 2–3
+                  недели. Срок считается от момента, когда согласована структура и собраны
+                  материалы: тексты, фотографии, прайс. Если материалов нет, помогу их собрать, это
+                  добавит несколько дней.
+                </p>
+              </div>
+            </div>
+
+            <div class="qa__row">
+              <h3 class="qa__h">
+                <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-2">
+                  Как происходит оплата?
+                  <span class="qa__sign" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="qa__a" id="qa-2" hidden>
+                <p>
+                  Половина на старте, остальное после приёмки и до передачи исходников. Проекты
+                  длиннее двух недель делим на три части по этапам. Работаю как самозанятый, выдаю
+                  чек. Если на шаге прототипа станет понятно, что задача мне не подходит, предоплату
+                  возвращаю.
+                </p>
+              </div>
+            </div>
+
+            <div class="qa__row">
+              <h3 class="qa__h">
+                <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-3">
+                  Сколько правок входит в цену?
+                  <span class="qa__sign" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="qa__a" id="qa-3" hidden>
+                <p>
+                  Правки внутри согласованной структуры не ограничены и не стоят денег: тексты,
+                  цвета, порядок блоков, формулировки. Отдельно оцениваю только то, что меняет
+                  объём: новые разделы, другая логика калькулятора, ещё одна интеграция. О доплате
+                  предупреждаю заранее, а не по факту.
+                </p>
+              </div>
+            </div>
+
+            <div class="qa__row">
+              <h3 class="qa__h">
+                <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-4">
+                  Где будет жить сайт и сколько стоит хостинг?
+                  <span class="qa__sign" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="qa__a" id="qa-4" hidden>
+                <p>
+                  Статичный сайт держится бесплатно на GitHub Pages или Vercel. Если нужны база и
+                  серверная часть, это сервер за 300–500 ₽ в месяц или бесплатный тариф облачной
+                  базы. Домен оплачиваете вы напрямую, 200–1 000 ₽ в год. Все аккаунты оформляем на
+                  вас: сайт остаётся вашим.
+                </p>
+              </div>
+            </div>
+
+            <div class="qa__row">
+              <h3 class="qa__h">
+                <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-5">
+                  Что с поддержкой после запуска?
+                  <span class="qa__sign" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="qa__a" id="qa-5" hidden>
+                <p>
+                  Две недели после запуска правлю баги бесплатно. Дальше на выбор: разовые задачи по
+                  часовой ставке или месячная поддержка с фиксированным объёмом часов. Контент и
+                  цены вы меняете сами — я выношу их в отдельный файл или админку и показываю, как с
+                  ними работать.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════ Контакты ══════════════ -->
+      <section class="band band--contacts" id="contacts" aria-labelledby="contacts-title">
+        <div class="shell">
+          <div class="head band__reveal">
+            <h2 class="head__title" id="contacts-title">Контакты</h2>
+            <span class="head__rule" aria-hidden="true"></span>
+            <p class="head__meta">отвечаю в течение дня</p>
+          </div>
+
+          <div class="reach band__reveal">
+            <div class="reach__side">
+              <p class="reach__note">
+                Быстрее всего — Telegram. Напишите пару предложений о задаче и, если есть, ссылку на
+                текущий сайт. Если проект мне не подходит, скажу сразу и посоветую, к кому пойти.
+              </p>
+
+              <ul class="lines">
+                <li class="line">
+                  <span class="line__key">Telegram</span>
+                  <a class="line__val" href="https://t.me/glushi_ribu" target="_blank" rel="noopener"
+                    >@glushi_ribu</a
+                  >
+                </li>
+                <li class="line">
+                  <span class="line__key">Почта</span>
+                  <a class="line__val" href="mailto:kot.baton.2005@gmail.com"
+                    >kot.baton.2005@gmail.com</a
+                  >
+                </li>
+                <li class="line">
+                  <span class="line__key">GitHub</span>
+                  <a class="line__val" href="https://github.com/KnyazIV" target="_blank" rel="noopener"
+                    >github.com/KnyazIV</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <form class="form" id="lead-form" novalidate>
+              <div class="field">
+                <label class="field__label" for="lead-name">Как вас зовут</label>
+                <input
+                  class="field__input"
+                  id="lead-name"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                  placeholder="Марина"
+                  required
+                />
+                <p class="field__hint" data-error-for="name" hidden></p>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="lead-telegram">Telegram или почта</label>
+                <input
+                  class="field__input"
+                  id="lead-telegram"
+                  name="telegram"
+                  type="text"
+                  autocomplete="username"
+                  placeholder="@username"
+                  required
+                />
+                <p class="field__hint" data-error-for="telegram" hidden></p>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="lead-message">Что нужно сделать</label>
+                <textarea
+                  class="field__input field__input--tall"
+                  id="lead-message"
+                  name="message"
+                  rows="5"
+                  placeholder="Сайт для студии маникюра с онлайн-записью и уведомлениями в Telegram"
+                  required
+                ></textarea>
+                <p class="field__hint" data-error-for="message" hidden></p>
+              </div>
+
+              <button class="btn btn--primary btn--wide" type="submit">Отправить заявку</button>
+
+              <p class="form__status" id="form-status" role="status" aria-live="polite" hidden></p>
+              <p class="form__small">
+                Данные из формы нужны только для ответа на заявку и никуда больше не уходят.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="statusbar">
+      <div class="shell statusbar__inner">
+        <p class="statusbar__who">Иван, разработчик из Санкт-Петербурга</p>
+        <nav class="statusbar__links" aria-label="Профили">
+          <a href="https://github.com/KnyazIV" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://t.me/glushi_ribu" target="_blank" rel="noopener">Telegram</a>
+          <a href="mailto:kot.baton.2005@gmail.com">Почта</a>
+        </nav>
+        <p class="statusbar__year"><span id="year">2026</span></p>
+      </div>
+    </footer>
+
+    <div class="sheet" id="project-modal" hidden>
+      <div class="sheet__scrim" data-modal-close></div>
+      <div
+        class="sheet__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        tabindex="-1"
+      >
+        <button class="sheet__close" type="button" data-modal-close aria-label="Закрыть кейс">
+          Закрыть
+        </button>
+        <div class="sheet__body" id="modal-content"></div>
+      </div>
+    </div>
+
+    <script src="js/projects.js" defer></script>
+    <script src="js/form.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </body>
+</html>
