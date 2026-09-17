@@ -1329,6 +1329,16 @@ button {
   color: var(--alarm);
 }
 
+/* Поле-ловушка для ботов: убрано с экрана, но остаётся в разметке формы. */
+.field--trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .form__status {
   padding: 13px 16px;
   border: 1px solid var(--rule-strong);

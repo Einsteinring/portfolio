@@ -564,6 +564,18 @@
                 <p class="field__hint" data-error-for="message" hidden></p>
               </div>
 
+              <!-- Ловушка для ботов: человек это поле не видит и не заполняет. -->
+              <div class="field field--trap" aria-hidden="true">
+                <label for="lead-company">Организация</label>
+                <input
+                  id="lead-company"
+                  name="company"
+                  type="text"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+              </div>
+
               <button class="btn btn--primary btn--wide" type="submit">Отправить заявку</button>
 
               <p class="form__status" id="form-status" role="status" aria-live="polite" hidden></p>

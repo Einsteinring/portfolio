@@ -1,29 +1,41 @@
 /* =========================================================================
    Форма заявки.
 
-   sendLead(data) — единственное место, которое нужно поменять, когда появится
-   бот или бэкенд. Сейчас она пишет заявку в консоль и делает вид, что отправка
-   прошла успешно. Пример будущей реализации:
+   Страница лежит на GitHub Pages, где все файлы открыты для чтения, поэтому
+   токен Telegram-бота здесь держать нельзя. Заявку принимает отдельный
+   обработчик на Vercel (папка lead-api), он и пересылает её в Telegram.
 
-     async function sendLead(data) {
-       const response = await fetch("https://api.example.com/lead", {
-         method: "POST",
-         headers: { "Content-Type": "application/json" },
-         body: JSON.stringify(data),
-       });
-       if (!response.ok) throw new Error("HTTP " + response.status);
-       return response.json();
-     }
+   Чтобы подключить форму, впишите адрес обработчика в LEAD_ENDPOINT ниже.
+   Пока строка пустая, форма честно говорит, что не подключена, и отправляет
+   человека в Telegram, вместо того чтобы показывать ложный успех.
    ========================================================================= */
+
+/** Адрес обработчика, например "https://lead-api.vercel.app/api/lead". */
+var LEAD_ENDPOINT = "";
+
+/** Куда отправлять человека, если форма недоступна. */
+var FALLBACK_CONTACT = "@glushi_ribu";
 
 /**
  * Отправка заявки.
- * @param {{name: string, telegram: string, message: string, sentAt: string}} data
+ * @param {{name: string, telegram: string, message: string, company: string}} data
  * @returns {Promise<{ok: boolean}>}
  */
-function sendLead(data) {
-  console.log("[portfolio] Новая заявка:", data);
-  return Promise.resolve({ ok: true });
+async function sendLead(data) {
+  if (!LEAD_ENDPOINT) {
+    throw new Error("not-configured");
+  }
+
+  var response = await fetch(LEAD_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("HTTP " + response.status);
+  }
+  return response.json();
 }
 
 (function () {
@@ -38,19 +50,19 @@ function sendLead(data) {
   var RULES = {
     name: {
       test: function (value) {
-        return value.length >= 2;
+        return value.length >= 2 && value.length <= 80;
       },
       message: "Напишите, как к вам обращаться.",
     },
     telegram: {
       test: function (value) {
-        return value.length >= 3;
+        return value.length >= 3 && value.length <= 120;
       },
       message: "Оставьте Telegram или почту, чтобы я мог ответить.",
     },
     message: {
       test: function (value) {
-        return value.length >= 10;
+        return value.length >= 10 && value.length <= 2000;
       },
       message: "Опишите задачу хотя бы парой предложений.",
     },
@@ -129,22 +141,33 @@ function sendLead(data) {
       return;
     }
 
-    data.sentAt = new Date().toISOString();
+    // Поле-ловушка: человек его не видит, бот заполняет.
+    data.company = form.elements.company ? String(form.elements.company.value).trim() : "";
 
     if (submitButton) {
       submitButton.disabled = true;
       submitButton.textContent = "Отправляю…";
     }
 
-    Promise.resolve(sendLead(data))
+    Promise.resolve()
+      .then(function () {
+        return sendLead(data);
+      })
       .then(function () {
         form.reset();
         setStatus("Заявка отправлена. Отвечу в течение дня в Telegram или на почту.", false);
       })
       .catch(function (error) {
+        if (error && error.message === "not-configured") {
+          setStatus(
+            "Форма пока не подключена. Напишите мне напрямую в Telegram: " + FALLBACK_CONTACT,
+            true
+          );
+          return;
+        }
         console.error("[portfolio] sendLead:", error);
         setStatus(
-          "Отправить не получилось. Напишите напрямую в Telegram: @glushi_ribu",
+          "Отправить не получилось. Напишите напрямую в Telegram: " + FALLBACK_CONTACT,
           true
         );
       })
