@@ -11,7 +11,7 @@
 
   /** Подписи типов. Ключи совпадают с data-filter у кнопок фильтра. */
   var KIND_LABELS = {
-    landing: "лендинг",
+    landing: "сайт",
     bot: "Telegram-бот",
     miniapp: "Mini App",
     integration: "интеграции",
