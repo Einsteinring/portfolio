@@ -101,23 +101,23 @@ git init
 git add .
 git commit -m "Портфолио: первая версия"
 git branch -M main
-git remote add origin https://github.com/KnyazIV/portfolio.git
+git remote add origin https://github.com/Einsteinring/portfolio.git
 git push -u origin main
 ```
 
 3. В репозитории откройте **Settings → Pages**.
 4. В блоке **Build and deployment** выберите Source: **Deploy from a branch**,
    Branch: **main**, папка: **/ (root)**. Нажмите **Save**.
-5. Через 1–2 минуты сайт будет доступен по адресу `https://knyaziv.github.io/portfolio/`.
+5. Через 1–2 минуты сайт будет доступен по адресу `https://einsteinring.github.io/portfolio/`.
 
 ### Вариант B — главная страница профиля
 
-Назовите репозиторий `KnyazIV.github.io` и положите содержимое папки в его корень.
-Тогда адрес будет `https://knyaziv.github.io/` без суффикса.
+Назовите репозиторий `einsteinring.github.io` и положите содержимое папки в его корень.
+Тогда адрес будет `https://einsteinring.github.io/` без суффикса.
 
 ### После деплоя
 
-Если адрес отличается от `https://knyaziv.github.io/portfolio/`, поправьте в
+Если адрес отличается от `https://einsteinring.github.io/portfolio/`, поправьте в
 [`index.html`](index.html) три места: `<link rel="canonical">`, `og:url` и `og:image`.
 Они нужны для корректного превью ссылки в мессенджерах.
 
@@ -160,7 +160,7 @@ git push -u origin main
   "tags": ["bot", "integration"],
   "tech": ["Python", "aiogram", "Google Calendar API"],
   "demoUrl": "https://t.me/example_bot",
-  "repoUrl": "https://github.com/KnyazIV/example-bot",
+  "repoUrl": "https://github.com/Einsteinring/example-bot",
   "preview": "assets/previews/my-bot.png"
 }
 ```

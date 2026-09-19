@@ -20,7 +20,7 @@
       "Google Fonts"
     ],
     "demoUrl": "https://liteiny.vercel.app",
-    "repoUrl": "https://github.com/KnyazIV/liteiny",
+    "repoUrl": "https://github.com/Einsteinring/liteiny",
     "preview": "assets/previews/liteiny.png"
   },
   {
@@ -46,7 +46,7 @@
       "Vercel"
     ],
     "demoUrl": "https://depo-nine-mauve.vercel.app",
-    "repoUrl": "https://github.com/KnyazIV/depo",
+    "repoUrl": "https://github.com/Einsteinring/depo",
     "preview": "assets/previews/depo.png"
   },
   {
@@ -70,7 +70,7 @@
       "Vitest"
     ],
     "demoUrl": "https://shinapro.vercel.app",
-    "repoUrl": "https://github.com/KnyazIV/shinapro",
+    "repoUrl": "https://github.com/Einsteinring/shinapro",
     "preview": "assets/previews/shinapro.png"
   }
 ]
