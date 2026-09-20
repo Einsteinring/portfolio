@@ -21,6 +21,9 @@
 
   --rule: #232a27;
   --rule-strong: #39433e;
+  /* Граница кнопки — не разделитель: к ней применимо требование 3:1,
+     поэтому у неё свой цвет, а не общий --rule-strong (тот даёт 1,8:1). */
+  --control-edge: #64726c;
 
   --text: #e9efeb;
   --text-dim: #8fa09a;
@@ -451,7 +454,7 @@ button {
   justify-content: center;
   gap: 6px;
   background: transparent;
-  border: 1px solid var(--rule-strong);
+  border: 1px solid var(--control-edge);
   border-radius: var(--r-control);
 }
 
@@ -877,7 +880,7 @@ button {
 
 .work__act {
   padding: 9px 15px;
-  border: 1px solid var(--rule-strong);
+  border: 1px solid var(--control-edge);
   border-radius: var(--r-control);
   font-size: 14.5px;
   font-weight: 600;
@@ -897,14 +900,20 @@ button {
   background: #d6ff6e;
 }
 
+/* Кейс открывается на самой странице, поэтому он не такой громкий, как «демо»,
+   но и не пунктирный призрак: разница между тремя кнопками задана заливкой,
+   а не приглушённым текстом. */
 .work__act--case {
-  border-style: dashed;
-  color: var(--text-dim);
+  background: rgba(233, 239, 235, 0.06);
 }
 
 .work__act:hover {
   border-color: var(--accent);
   color: var(--accent);
+}
+
+.work__act--case:hover {
+  background: var(--accent-wash);
 }
 
 .work__act--go:hover {
@@ -1017,10 +1026,10 @@ button {
   right: 18px;
   padding: 8px 14px;
   background: transparent;
-  border: 1px solid var(--rule-strong);
+  border: 1px solid var(--control-edge);
   border-radius: var(--r-control);
   font-size: 14px;
-  color: var(--text-dim);
+  color: var(--text);
   transition:
     color var(--swift),
     border-color var(--swift);
@@ -1296,7 +1305,7 @@ button {
   width: 100%;
   padding: 13px 15px;
   background: var(--bg-sunken);
-  border: 1px solid var(--rule-strong);
+  border: 1px solid var(--control-edge);
   border-radius: var(--r-control);
   color: var(--text);
   font-family: var(--sans);
