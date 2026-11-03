@@ -16,6 +16,7 @@
     bot: "Telegram-бот",
     miniapp: "Mini App",
     integration: "интеграции",
+    optimization: "оптимизация",
   };
 
   /** До скольких карточек показывать приглашение на свободное место. */
@@ -49,6 +50,8 @@
 
   function matches(project, filter) {
     if (filter === "all") return true;
+    if (filter === "client") return project.kind === "client";
+    if (filter === "demo") return project.kind !== "client";
     return Array.isArray(project.tags) && project.tags.indexOf(filter) !== -1;
   }
 
@@ -96,7 +99,9 @@
       acts +=
         '<a class="work__act work__act--go" href="' +
         esc(project.demoUrl) +
-        '" target="_blank" rel="noopener">Открыть демо</a>';
+        '" target="_blank" rel="noopener">' +
+        (project.kind === "client" ? "Открыть сайт" : "Открыть демо") +
+        "</a>";
     }
     if (filled(project.repoUrl)) {
       acts +=
@@ -104,7 +109,8 @@
         esc(project.repoUrl) +
         '" target="_blank" rel="noopener">Код на GitHub</a>';
     }
-    acts += '<button class="work__act work__act--case" type="button">Открыть кейс</button>';
+    acts +=
+      '<button class="work__act work__act--case" type="button">Открыть кейс</button>';
 
     // У широкой карточки есть место под стек — показываем его сразу,
     // не заставляя ради этого открывать кейс.
@@ -116,7 +122,9 @@
     card.innerHTML =
       shotMarkup(project) +
       '<div class="work__main">' +
-      (lead ? '<p class="work__flag">Свежий проект</p>' : "") +
+      '<p class="work__flag">' +
+      (project.kind === "client" ? "Заказ с Kwork" : "Демо-проект") +
+      "</p>" +
       '<h3 class="work__title">' +
       esc(project.title) +
       "</h3>" +
@@ -130,9 +138,11 @@
       "</div>" +
       "</div>";
 
-    card.querySelector(".work__act--case").addEventListener("click", function () {
-      openCase(project);
-    });
+    card
+      .querySelector(".work__act--case")
+      .addEventListener("click", function () {
+        openCase(project);
+      });
 
     // Клик по свободному месту карточки тоже открывает кейс.
     card.addEventListener("click", function (event) {
@@ -172,7 +182,7 @@
 
   function paintHeadCount(total) {
     if (!countBox) return;
-    countBox.textContent = total === 0 ? "пока пусто" : total + " демо";
+    countBox.textContent = total === 0 ? "пока пусто" : total + " в подборке";
   }
 
   function render() {
@@ -188,7 +198,10 @@
     if (visible.length === 0) {
       var empty = document.createElement("p");
       empty.className = "works__state";
-      empty.textContent = "Демо этого типа пока нет. Могу собрать первое — напишите, что нужно.";
+      empty.textContent =
+        kind === "client"
+          ? "Кейсы заказов с Kwork готовятся к публикации. Ниже в разделе «Демо-проекты» можно посмотреть открытые работы."
+          : "Проектов этого типа пока нет.";
       grid.appendChild(empty);
     } else {
       visible.forEach(function (project, index) {
@@ -230,13 +243,22 @@
       acts +=
         '<a class="btn btn--primary" href="' +
         esc(project.demoUrl) +
-        '" target="_blank" rel="noopener">Открыть демо</a>';
+        '" target="_blank" rel="noopener">' +
+        (project.kind === "client" ? "Открыть сайт" : "Открыть демо") +
+        "</a>";
     }
     if (filled(project.repoUrl)) {
       acts +=
         '<a class="btn btn--quiet" href="' +
         esc(project.repoUrl) +
         '" target="_blank" rel="noopener">Код на GitHub</a>';
+    }
+
+    if (filled(project.sourceUrl)) {
+      acts +=
+        '<a class="btn btn--quiet" href="' +
+        esc(project.sourceUrl) +
+        '" target="_blank" rel="noopener">Профиль на Kwork</a>';
     }
 
     var stack =
@@ -257,6 +279,9 @@
       esc(project.tagline) +
       "</p>" +
       '<dl class="story">' +
+      (project.kind === "client"
+        ? part("Формат работы", project.workFormat || "Заказ с Kwork")
+        : "") +
       part("Задача", project.task) +
       part("Решение", project.solution) +
       part("Результат", project.result) +
@@ -293,7 +318,7 @@
     if (event.key !== "Tab" || !panel) return;
 
     var stops = panel.querySelectorAll(
-      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
     );
     if (stops.length === 0) return;
 
@@ -343,7 +368,13 @@
       return response.json();
     })
     .then(function (data) {
-      projects = Array.isArray(data) ? data : [];
+      projects = (Array.isArray(data) ? data : [])
+        .filter(function (project) {
+          return project.published !== false;
+        })
+        .sort(function (a, b) {
+          return Number(b.kind === "client") - Number(a.kind === "client");
+        });
       paintCounts();
       render();
     })
@@ -352,7 +383,7 @@
       grid.setAttribute("aria-busy", "false");
       grid.innerHTML =
         '<p class="works__state works__state--bad">Список проектов не загрузился. ' +
-        "Страницу нужно открывать через локальный сервер, а не файлом с диска.</p>";
+        'Попробуйте обновить страницу или посмотрите <a href="https://github.com/Einsteinring">работы на GitHub</a>.</p>';
       if (countBox) countBox.textContent = "";
       console.error("[portfolio] projects.json:", error);
     });
