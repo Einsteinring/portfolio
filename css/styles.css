@@ -382,7 +382,7 @@ h2 {
 }
 .services {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 45px;
   margin-top: 55px;
 }
@@ -1001,4 +1001,41 @@ body {
 }
 .ident__mark.is-animated .ident__image {
   display: none;
+}
+
+.services-note {
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+}
+.contact-kwork {
+  display: block;
+  margin-top: 16px;
+  color: var(--highlight);
+  font-size: 14px;
+}
+.story-details {
+  margin-top: 30px;
+  border-block: 1px solid var(--line);
+  padding-block: 18px;
+}
+.story-details summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: 500;
+}
+.story-details__text {
+  margin-top: 20px;
+  white-space: pre-line;
+  color: var(--muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.story-details .story {
+  margin-bottom: 0;
+}
+.sheet__acts {
+  margin-top: 28px;
 }

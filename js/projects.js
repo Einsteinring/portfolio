@@ -272,6 +272,11 @@
         : "";
 
     panelBody.innerHTML =
+      '<p class="work__flag">' +
+      (project.kind === "client"
+        ? "Заказ с Kwork"
+        : "Собственный демо-проект") +
+      "</p>" +
       '<h2 class="sheet__title" id="modal-title">' +
       esc(project.title) +
       "</h2>" +
@@ -285,8 +290,20 @@
       part("Задача", project.task) +
       part("Решение", project.solution) +
       part("Результат", project.result) +
-      stack +
       "</dl>" +
+      (filled(project.technicalDetails) || stack
+        ? '<details class="story-details"><summary>Технические подробности</summary>' +
+          (project.kind !== "client"
+            ? '<p class="story-details__text">Описание реализации и проверок собственного демо-проекта.</p>'
+            : "") +
+          (filled(project.technicalDetails)
+            ? '<p class="story-details__text">' +
+              esc(project.technicalDetails) +
+              "</p>"
+            : "") +
+          (stack ? '<dl class="story">' + stack + "</dl>" : "") +
+          "</details>"
+        : "") +
       (acts ? '<div class="sheet__acts">' + acts + "</div>" : "");
 
     sheet.hidden = false;
@@ -301,6 +318,13 @@
     if (!sheet || sheet.hidden) return;
 
     sheet.hidden = true;
+    if (window.location.hash.indexOf("#case-") === 0) {
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search + "#work",
+      );
+    }
     document.body.classList.remove("is-held");
     document.removeEventListener("keydown", onSheetKey);
 
@@ -360,6 +384,27 @@
     });
   }
 
+  function openLinkedCase() {
+    if (window.location.hash.indexOf("#case-") !== 0) return;
+    var id = window.location.hash.slice(6);
+    var project = projects.find(function (item) {
+      return item.id === id;
+    });
+    if (project) openCase(project);
+  }
+  window.addEventListener("hashchange", function () {
+    if (window.location.hash.indexOf("#case-") === 0) openLinkedCase();
+    else if (sheet && !sheet.hidden) closeCase();
+  });
+  document.querySelectorAll('a[href^="#case-"]').forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      if (window.location.hash === link.getAttribute("href")) {
+        event.preventDefault();
+        openLinkedCase();
+      }
+    });
+  });
+
   /* ───────────────────────── Данные ───────────────────────── */
 
   fetch("projects.json", { cache: "no-cache" })
@@ -377,6 +422,7 @@
         });
       paintCounts();
       render();
+      openLinkedCase();
     })
     .catch(function (error) {
       if (!grid) return;
