@@ -95,6 +95,9 @@
       button.setAttribute("aria-pressed", String(paused));
       button.textContent = paused ? "Включить фон" : "Остановить фон";
     }
+    document.dispatchEvent(
+      new CustomEvent("portfolio:motion", { detail: { paused: paused } }),
+    );
     draw();
     if (!paused && !document.hidden) {
       last = performance.now();

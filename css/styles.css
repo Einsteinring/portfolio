@@ -987,3 +987,18 @@ body {
     padding-block: 38px 55px;
   }
 }
+
+/* Кадры логотипа рисуются прямо на сетке 24 × 24: вращение без сглаживания. */
+.ident__mark {
+  position: relative;
+}
+.ident__image,
+.ident__animation {
+  display: block;
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+}
+.ident__mark.is-animated .ident__image {
+  display: none;
+}

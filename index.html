@@ -64,13 +64,20 @@
     <header class="topbar">
       <div class="shell topbar__inner">
         <a class="ident" href="#top" aria-label="Иван — на главную"
-          ><img
-            class="ident__mark"
-            src="assets/logo.svg"
-            alt=""
-            width="48"
-            height="48"
-          /><span>Иван<span class="ident__role">Веб-разработчик</span></span></a
+          ><span class="ident__mark" aria-hidden="true"
+            ><img
+              class="ident__image"
+              src="assets/logo.svg"
+              alt=""
+              width="48"
+              height="48" /><canvas
+              class="ident__animation"
+              id="logo-animation"
+              width="24"
+              height="24"
+              hidden
+            ></canvas></span
+          ><span>Иван<span class="ident__role">Веб-разработчик</span></span></a
         >
         <nav class="topnav" aria-label="Разделы страницы">
           <a href="#work">Работы</a><a href="#services">Чем помогу</a
@@ -404,5 +411,6 @@
     <script src="js/form.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/ambient.js" defer></script>
+    <script src="js/logo.js" defer></script>
   </body>
 </html>
