@@ -106,14 +106,11 @@ p {
   line-height: 1.4;
 }
 .ident__mark {
-  background: var(--highlight);
-  color: #1a142b;
-  font-size: 30px;
+  display: block;
   width: 48px;
   height: 48px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
+  flex: 0 0 48px;
+  image-rendering: pixelated;
 }
 .ident__role {
   display: block;
@@ -667,11 +664,6 @@ h2 {
     min-height: 76px;
     gap: 12px;
   }
-  .ident__mark {
-    width: 39px;
-    height: 39px;
-    font-size: 26px;
-  }
   .ident__role {
     font-size: 10px;
   }
@@ -800,10 +792,6 @@ h2 {
 }
 
 /* Ночная палитра с лавандовыми акцентами. */
-.ident__mark {
-  font-family: "Unbounded", sans-serif;
-  font-weight: 800;
-}
 .hero h1 {
   line-height: 1.18;
 }
@@ -932,9 +920,6 @@ body {
 }
 .form .btn--primary:hover {
   background: #d5c5ff;
-}
-.ident__mark {
-  color: #1a142b;
 }
 .service-icon {
   color: #1a142b;
