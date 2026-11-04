@@ -55,6 +55,22 @@
     return Array.isArray(project.tags) && project.tags.indexOf(filter) !== -1;
   }
 
+  function demoLink(project) {
+    var local = ["localhost", "127.0.0.1", "[::1]"].indexOf(window.location.hostname) !== -1;
+    var redesign = project.versionStatus === "local-redesign";
+    if (local && redesign && filled(project.localPreviewUrl)) {
+      return { url: project.localPreviewUrl, label: "Открыть новую версию", local: true };
+    }
+    return { url: project.demoUrl, label: project.kind === "client" ? "Открыть сайт" : redesign ? "Опубликованная версия" : "Открыть демо", local: false };
+  }
+
+  function versionNotice(project) {
+    if (project.versionStatus !== "local-redesign") return "";
+    return '<p class="work-version">' + (demoLink(project).local
+      ? "Открывается обновлённая локальная версия."
+      : "Превью и описание — новый редизайн. Публичный сайт и репозиторий пока содержат предыдущую версию.") + '</p>';
+  }
+
   /* ───────────────────────── Карточка ───────────────────────── */
 
   function shotMarkup(project) {
@@ -95,12 +111,13 @@
     card.className = "work" + (lead ? " work--lead" : "");
 
     var acts = "";
-    if (filled(project.demoUrl)) {
+    var demo = demoLink(project);
+    if (filled(demo.url)) {
       acts +=
         '<a class="work__act work__act--go" href="' +
-        esc(project.demoUrl) +
+        esc(demo.url) +
         '" target="_blank" rel="noopener">' +
-        (project.kind === "client" ? "Открыть сайт" : "Открыть демо") +
+        demo.label +
         "</a>";
     }
     if (filled(project.repoUrl)) {
@@ -123,7 +140,7 @@
       shotMarkup(project) +
       '<div class="work__main">' +
       '<p class="work__flag">' +
-      (project.kind === "client" ? "Заказ с Kwork" : "Демо-проект") +
+      (project.kind === "client" ? "Заказ с Kwork" : project.formatLabel || "Демо-проект") +
       "</p>" +
       '<h3 class="work__title">' +
       esc(project.title) +
@@ -132,6 +149,7 @@
       esc(project.tagline) +
       "</p>" +
       kindsMarkup(project.tags) +
+      versionNotice(project) +
       stack +
       '<div class="work__acts">' +
       acts +
@@ -239,12 +257,13 @@
     opener = focusTarget || document.activeElement;
 
     var acts = "";
-    if (filled(project.demoUrl)) {
+    var demo = demoLink(project);
+    if (filled(demo.url)) {
       acts +=
         '<a class="btn btn--primary" href="' +
-        esc(project.demoUrl) +
+        esc(demo.url) +
         '" target="_blank" rel="noopener">' +
-        (project.kind === "client" ? "Открыть сайт" : "Открыть демо") +
+        demo.label +
         "</a>";
     }
     if (filled(project.repoUrl)) {
@@ -290,6 +309,9 @@
       part("Задача", project.task) +
       part("Решение", project.solution) +
       part("Результат", project.result) +
+      (Array.isArray(project.features) && project.features.length
+        ? '<div class="story__part"><dt class="story__key">Ключевые сценарии</dt><dd><ul class="story-features">' + project.features.map(function (feature) { return '<li>' + esc(feature) + '</li>'; }).join('') + '</ul></dd></div>'
+        : '') +
       "</dl>" +
       (filled(project.technicalDetails) || stack
         ? '<details class="story-details"><summary>Технические подробности</summary>' +
@@ -304,6 +326,7 @@
           (stack ? '<dl class="story">' + stack + "</dl>" : "") +
           "</details>"
         : "") +
+      versionNotice(project) +
       (acts ? '<div class="sheet__acts">' + acts + "</div>" : "");
 
     sheet.hidden = false;
