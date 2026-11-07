@@ -3,13 +3,13 @@
    панель с кейсом.
 
    Чтобы добавить проект, правится только projects.json. Здесь меняется одно
-   место — словарь KIND_LABELS, если появится новый тип тега.
+   место — словарь KIND_LABELS, если в карточках появится новый тег.
    ========================================================================== */
 
 (function () {
   "use strict";
 
-  /** Подписи типов. Ключи совпадают с data-filter у кнопок фильтра. */
+  /** Подписи тегов из projects.json, строка под описанием карточки. */
   var KIND_LABELS = {
     landing: "сайт",
     catalog: "каталог с поиском",
@@ -18,9 +18,6 @@
     integration: "интеграции",
     optimization: "оптимизация",
   };
-
-  /** До скольких карточек показывать приглашение на свободное место. */
-  var SLOT_UNTIL = 4;
 
   var grid = document.getElementById("projects");
   var tabsBox = document.querySelector(".tabs");
@@ -56,19 +53,10 @@
   }
 
   function demoLink(project) {
-    var local = ["localhost", "127.0.0.1", "[::1]"].indexOf(window.location.hostname) !== -1;
-    var redesign = project.versionStatus === "local-redesign";
-    if (local && redesign && filled(project.localPreviewUrl)) {
-      return { url: project.localPreviewUrl, label: "Открыть новую версию", local: true };
-    }
-    return { url: project.demoUrl, label: project.kind === "client" ? "Открыть сайт" : redesign ? "Опубликованная версия" : "Открыть демо", local: false };
-  }
-
-  function versionNotice(project) {
-    if (project.versionStatus !== "local-redesign") return "";
-    return '<p class="work-version">' + (demoLink(project).local
-      ? "Открывается обновлённая локальная версия."
-      : "Превью и описание — новый редизайн. Публичный сайт и репозиторий пока содержат предыдущую версию.") + '</p>';
+    return {
+      url: project.demoUrl,
+      label: project.kind === "client" ? "Открыть сайт" : "Открыть демо",
+    };
   }
 
   /* ───────────────────────── Карточка ───────────────────────── */
@@ -104,8 +92,7 @@
       .join("");
   }
 
-  function buildCard(project, index) {
-    var lead = index === 0;
+  function buildCard(project, lead) {
 
     var card = document.createElement("article");
     card.className = "work" + (lead ? " work--lead" : "");
@@ -149,7 +136,6 @@
       esc(project.tagline) +
       "</p>" +
       kindsMarkup(project.tags) +
-      versionNotice(project) +
       stack +
       '<div class="work__acts">' +
       acts +
@@ -169,16 +155,6 @@
     });
 
     return card;
-  }
-
-  function buildSlot() {
-    var slot = document.createElement("article");
-    slot.className = "slot";
-    slot.innerHTML =
-      '<h3 class="slot__title">Здесь может быть ваш проект</h3>' +
-      '<p class="slot__text">Беру в работу сайты, Telegram-ботов, Mini Apps и интеграции. Напишите пару предложений о задаче — отвечу в течение дня.</p>' +
-      '<a class="btn btn--quiet btn--compact" href="https://t.me/glushi_ribu" target="_blank" rel="noopener">Обсудить в Telegram</a>';
-    return slot;
   }
 
   /* ───────────────────────── Отрисовка ───────────────────────── */
@@ -222,14 +198,12 @@
           : "Проектов этого типа пока нет.";
       grid.appendChild(empty);
     } else {
+      // При нечётном числе работ первая карточка растягивается на всю
+      // строку, чтобы последняя не оставалась в ряду одна.
+      var oddCount = visible.length % 2 === 1;
       visible.forEach(function (project, index) {
-        grid.appendChild(buildCard(project, index));
+        grid.appendChild(buildCard(project, oddCount && index === 0));
       });
-    }
-
-    // Пока проектов мало, сетка не должна выглядеть обрубленной.
-    if (visible.length < SLOT_UNTIL) {
-      grid.appendChild(buildSlot());
     }
 
     grid.setAttribute("aria-busy", "false");
@@ -249,6 +223,28 @@
       "</dd>" +
       "</div>"
     );
+  }
+
+  /** Блоки technicalDetails разделены пустой строкой; если в блоке
+      несколько строк, первая — заголовок. */
+  function detailsMarkup(text) {
+    return text
+      .split(/\n\s*\n/)
+      .map(function (block) {
+        var lines = block.trim().split("\n");
+        var head =
+          lines.length > 1
+            ? '<p class="story-details__head">' + esc(lines.shift()) + "</p>"
+            : "";
+        return (
+          '<div class="story-details__block">' +
+          head +
+          "<p>" +
+          esc(lines.join(" ")) +
+          "</p></div>"
+        );
+      })
+      .join("");
   }
 
   function openCase(project, focusTarget) {
@@ -315,18 +311,12 @@
       "</dl>" +
       (filled(project.technicalDetails) || stack
         ? '<details class="story-details"><summary>Технические подробности</summary>' +
-          (project.kind !== "client"
-            ? '<p class="story-details__text">Описание реализации и проверок собственного демо-проекта.</p>'
-            : "") +
           (filled(project.technicalDetails)
-            ? '<p class="story-details__text">' +
-              esc(project.technicalDetails) +
-              "</p>"
+            ? detailsMarkup(project.technicalDetails)
             : "") +
           (stack ? '<dl class="story">' + stack + "</dl>" : "") +
           "</details>"
         : "") +
-      versionNotice(project) +
       (acts ? '<div class="sheet__acts">' + acts + "</div>" : "");
 
     sheet.hidden = false;

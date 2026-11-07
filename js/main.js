@@ -1,55 +1,9 @@
 /* ==========================================================================
-   Поведение страницы: приход уведомлений на первом экране, появление секций,
-   мобильное меню, аккордеон вопросов, год в подвале.
+   Поведение страницы: мобильное меню и год в подвале.
    ========================================================================== */
 
 (function () {
   "use strict";
-
-  var calm =
-    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ───────── Единственный запланированный момент движения ─────────
-     Уведомления о заявках приходят одно за другим один раз при загрузке.
-     Дальше страница не двигается сама. */
-
-  var stream = document.getElementById("stream");
-
-  if (stream && !calm) {
-    var start = function () {
-      stream.classList.add("is-live");
-    };
-    if (document.readyState === "complete") {
-      start();
-    } else {
-      window.addEventListener("load", start, { once: true });
-    }
-  }
-
-  /* ───────── Появление секций ───────── */
-
-  var watcher = null;
-
-  if (!calm && "IntersectionObserver" in window) {
-    watcher = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-in");
-          watcher.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "0px 0px -6% 0px", threshold: 0.05 }
-    );
-  }
-
-  document.querySelectorAll(".band__reveal").forEach(function (block) {
-    if (!watcher) {
-      block.classList.add("is-in");
-      return;
-    }
-    watcher.observe(block);
-  });
 
   /* ───────── Мобильное меню ───────── */
 
@@ -90,28 +44,6 @@
       wide.addListener(onWide);
     }
   }
-
-  /* ───────── Вопросы ───────── */
-
-  var questions = document.querySelectorAll(".qa__q");
-
-  questions.forEach(function (button) {
-    button.addEventListener("click", function () {
-      var open = button.getAttribute("aria-expanded") === "true";
-      var answer = document.getElementById(button.getAttribute("aria-controls"));
-
-      // Открыт всегда один ответ: список не разъезжается под пальцами.
-      questions.forEach(function (other) {
-        if (other === button) return;
-        other.setAttribute("aria-expanded", "false");
-        var panel = document.getElementById(other.getAttribute("aria-controls"));
-        if (panel) panel.hidden = true;
-      });
-
-      button.setAttribute("aria-expanded", open ? "false" : "true");
-      if (answer) answer.hidden = open;
-    });
-  });
 
   /* ───────── Год ───────── */
 

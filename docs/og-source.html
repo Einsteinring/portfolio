@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@700;800&display=block" />
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: #141321;
+    color: #f1edff;
+    font-family: "Onest", sans-serif;
+    position: relative;
+  }
+  canvas { position: absolute; inset: 0; width: 1200px; height: 630px; image-rendering: pixelated; opacity: .8; }
+  .copy { position: absolute; left: 72px; top: 70px; width: 600px; }
+  .ident { display: flex; align-items: center; gap: 16px; font-weight: 600; font-size: 24px; }
+  .ident img { width: 64px; height: 64px; image-rendering: pixelated; }
+  .ident small { display: block; font-size: 16px; color: #b5aecb; font-weight: 400; }
+  h1 {
+    font-family: "Unbounded", sans-serif; font-weight: 800;
+    font-size: 58px; line-height: 1.16; letter-spacing: -0.055em;
+    margin-top: 58px; text-shadow: 0 3px 0 #0003;
+  }
+  p.lead { margin-top: 26px; font-size: 22px; line-height: 1.5; color: #b5aecb; }
+  .contact { position: absolute; left: 72px; bottom: 58px; font-size: 20px; color: #d4c9eb; }
+  .contact b { color: #c4b0ff; font-weight: 600; }
+  .shots { position: absolute; right: -40px; top: 92px; width: 520px; height: 460px; }
+  .shot {
+    position: absolute; width: 410px; padding: 14px 14px 0;
+    background: #292338; border: 1px solid #65547e; border-radius: 16px;
+    box-shadow: 10px 10px 0 #0d0b1877;
+  }
+  .shot img { display: block; width: 100%; aspect-ratio: 16/10; object-fit: cover; object-position: top; border-radius: 6px 6px 0 0; }
+  .shot span { display: block; font-size: 14px; color: #d4c9eb; padding: 10px 2px 12px; }
+  .s1 { left: 90px; top: 0; transform: rotate(3deg); }
+  .s2 { left: 0; top: 190px; transform: rotate(-3deg); }
+</style>
+</head>
+<body>
+<canvas id="sky" width="400" height="210"></canvas>
+<div class="copy">
+  <div class="ident"><img src="../assets/logo.svg" alt="" /><div>Иван<small>Веб-разработчик</small></div></div>
+  <h1>Сайты, боты.<br />Ваши задачи<br />в рабочем виде.</h1>
+  <p class="lead">Разработка и доработка сайтов, интеграции,<br />Telegram-боты и автоматизация.</p>
+</div>
+<div class="contact"><b>@glushi_ribu</b> · einsteinring.github.io/portfolio</div>
+<div class="shots">
+  <div class="shot s1"><img src="../assets/previews/shinapro-2026.webp" alt="" /><span>ШинаПро · магазин и сервис</span></div>
+  <div class="shot s2"><img src="../assets/previews/ovikv.webp" alt="" /><span>OVIKV · три заказа на Kwork</span></div>
+</div>
+<script>
+  // Тот же пиксельный пейзаж, что на сайте, в статичном кадре.
+  var c = document.getElementById("sky"), ctx = c.getContext("2d"), w = c.width, h = c.height, seed = 27;
+  function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+  for (var i = 0; i < 64; i++) {
+    var x = Math.floor(rnd() * w), y = Math.floor(rnd() * h * 0.83), big = rnd() > 0.91;
+    ctx.fillStyle = "rgba(186,165,224," + (0.25 + rnd() * 0.36) + ")";
+    ctx.fillRect(x, y, big ? 2 : 1, big ? 2 : 1);
+  }
+  function mountain(base, amp, color) {
+    ctx.fillStyle = color; ctx.beginPath(); ctx.moveTo(0, h);
+    for (var x = 0; x <= w + 4; x += 4) {
+      var y = base + Math.sin(x * 0.024) * amp + Math.sin(x * 0.061 + 2) * amp * 0.34;
+      ctx.lineTo(x, Math.floor(y / 3) * 3);
+    }
+    ctx.lineTo(w, h); ctx.closePath(); ctx.fill();
+  }
+  mountain(h * 0.88, 14, "#28213d");
+  mountain(h * 0.96, 9, "#342744");
+</script>
+</body>
+</html>

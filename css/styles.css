@@ -377,9 +377,6 @@ h2 {
   border-radius: var(--radius);
   color: var(--muted);
 }
-.slot {
-  display: none;
-}
 .services {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -539,7 +536,7 @@ h2 {
 .sheet__scrim {
   position: absolute;
   inset: 0;
-  background: #123e3899;
+  background: #0d0b18b8;
 }
 .sheet__panel {
   position: relative;
@@ -1026,13 +1023,6 @@ body {
   color: var(--accent);
   font-weight: 500;
 }
-.story-details__text {
-  margin-top: 20px;
-  white-space: pre-line;
-  color: var(--muted);
-  font-size: 14px;
-  overflow-wrap: anywhere;
-}
 .story-details .story {
   margin-bottom: 0;
 }
@@ -1040,8 +1030,70 @@ body {
   margin-top: 28px;
 }
 
-/* Статус обновлённых демо и сценарии в кейсе. */
-.work-version {margin-top:14px;color:var(--muted);font-size:11px;line-height:1.7;max-width:64ch}
+/* Сценарии в кейсе. */
 .story-features {display:grid;gap:9px;list-style:none;padding:0;margin:0;color:var(--muted);font-size:14px;line-height:1.7}
 .story-features li {padding-left:17px;position:relative}
 .story-features li::before {content:"";position:absolute;width:5px;height:5px;left:0;top:.65em;background:var(--accent)}
+
+/* Панель кейса получает фокус программно: рамка браузера ей не нужна. */
+.sheet__panel {
+  border-left: 1px solid var(--line);
+}
+.sheet__panel:focus {
+  outline: none;
+}
+
+/* Скриншоты показываются целиком, 16:10, без обрезки по бокам. */
+.hero__visual img,
+.work__img {
+  height: auto;
+  aspect-ratio: 16 / 10;
+}
+.work__shot {
+  height: auto;
+}
+
+/* При нечётном числе работ первая карточка занимает всю строку. */
+@media (min-width: 651px) {
+  .work--lead {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 44px;
+    align-items: center;
+  }
+  .work--lead .work__main {
+    padding-top: 0;
+  }
+  .work--lead .work__title {
+    font-size: 27px;
+  }
+  .work--lead .work__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 18px;
+  }
+}
+@media (min-width: 651px) and (max-width: 1000px) {
+  .work--lead {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .work--lead .work__main {
+    padding-top: 22px;
+  }
+}
+
+/* Технические подробности: заголовок блока и текст. */
+.story-details__block {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.story-details__head {
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
